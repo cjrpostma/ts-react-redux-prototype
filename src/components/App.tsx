@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Todo, deleteTodo, fetchTodos } from '../actions';
 import { StoreState } from '../reducers';
@@ -10,7 +10,14 @@ interface AppProps {
 }
 
 function _App(props: AppProps) {
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsFetching(false);
+  }, [props.todos]);
+
   const handleFetchClick = (): void => {
+    setIsFetching(true);
     props.fetchTodos();
   };
 
@@ -31,6 +38,7 @@ function _App(props: AppProps) {
   return (
     <div>
       <button onClick={handleFetchClick}>Fetch</button>
+      {isFetching ? <p>Loading...</p> : null}
       {renderList()}
     </div>
   );
