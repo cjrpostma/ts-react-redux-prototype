@@ -1,5 +1,6 @@
+import { todosReducer } from './todos';
 import { combineReducers } from 'redux';
 
 export const reducers = combineReducers({
-  counter: () => 1,
+  todos: todosReducer,
 });
